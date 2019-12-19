@@ -5,10 +5,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("../database/config");
 const auth = require("../middleware/auth");
-const sequelize = require("../database/db").sequelize;
+const sequelize = require("../database/db").Sequelize;
 const db = require("../database/db");
 const User = db.user;
 const Job = db.job;
+const Op = sequelize.Op;
 //@POST api/user @user registration
 Route.post(
   "/",
@@ -157,4 +158,110 @@ Route.post(
   }
 );
 
+Route.post("/details", auth, async (req, res) => {
+  const { startDate, endDate } = getPreviousWeekDate();
+  let { registration_number, role } = req.body;
+
+  if (role == "user") {
+    try {
+      const result = await Job.count({
+        where: {
+          userId: registration_number,
+          createdAt: {
+            [Op.between]: [startDate, endDate]
+          }
+        }
+      });
+      res.json({ result });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(402).json({ msg: "Server Error" });
+    }
+  }
+
+  if (role == "admin" || role == "super_admin") {
+    try {
+      const result = await Job.count({
+        where: {
+          assignTo: registration_number,
+          lead_status: "done",
+          call_date: {
+            [Op.between]: [startDate, endDate]
+          }
+        }
+      });
+      res.json({ result });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(402).json({ msg: "Server Error" });
+    }
+  }
+});
+
+Route.post("/monthly_details", auth, async (req, res) => {
+  const { first_date, last_date } = getMonthDate();
+  let { registration_number, role } = req.body;
+
+  if (role == "user") {
+    try {
+      const result = await Job.count({
+        where: {
+          userId: registration_number,
+          createdAt: {
+            [Op.between]: [first_date, last_date]
+          }
+        }
+      });
+      res.json({ result });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(402).json({ msg: "Server Error" });
+    }
+  }
+
+  if (role == "admin" || role == "super_admin") {
+    try {
+      const result = await Job.count({
+        where: {
+          assignTo: registration_number,
+          lead_status: "done",
+          call_date: {
+            [Op.between]: [first_date, last_date]
+          }
+        }
+      });
+      res.json({ result });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(402).json({ msg: "Server Error" });
+    }
+  }
+});
+
+function getPreviousWeekDate() {
+  var curr = new Date(); // get current date
+  var first = curr.getDate() - curr.getDay() - 6; // Gets day of the month (e.g. 21) - the day of the week (e.g. wednesday = 3) = Sunday (18th) - 6
+  var last = first + 6; // last day is the first day + 6
+  var startDate = new Date(curr.setDate(first));
+  var endDate = new Date(curr.setDate(last));
+
+  return {
+    startDate: startDate,
+    endDate: endDate
+  };
+}
+
+function getMonthDate() {
+  var now = new Date();
+  var prevMonthLastDate = new Date(now.getFullYear(), now.getMonth(), 0);
+  var prevMonthFirstDate = new Date(
+    now.getFullYear() - (now.getMonth() > 0 ? 0 : 1),
+    (now.getMonth() - 1 + 12) % 12,
+    1
+  );
+  return {
+    last_date: prevMonthLastDate,
+    first_date: prevMonthFirstDate
+  };
+}
 module.exports = Route;

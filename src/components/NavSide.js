@@ -122,6 +122,17 @@ const mailFolderListItems = ({ user, classes }) => {
           ) : (
             ""
           )}
+
+          {raceName == "super_admin" ? (
+            <ListItem button component={Link} to="/user_report">
+              <ListItemIcon>
+                <ListIcon className={classes.root} />
+              </ListItemIcon>
+              <ListItemText primary="User Report" />
+            </ListItem>
+          ) : (
+            ""
+          )}
         </List>
       </Collapse>
       {raceName == "admin" || raceName == "super_admin" ? (

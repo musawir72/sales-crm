@@ -21,6 +21,8 @@ import LeadDetails from "../pages/sales/leads/LeadDetails";
 import EditLead from "../pages/sales/leads/LeadEdit";
 import MyLeads from "../pages/sales/leads/MyLead";
 import LeadSchedule from "../pages/sales/leads/LeadCallList";
+import UserReport from "../pages/sales/user/UserReport";
+import UserDetails from "../pages/sales/user/UserDetails";
 const history = createBrowserHistory();
 
 export default () => {
@@ -30,20 +32,26 @@ export default () => {
       <Router history={history}>
         <Switch>
           <PublicRoute exact path="/" component={SignInPage} />
-          <PublicRoute path="/signup" component={SignUpPage} />
-          <PrivateRoute path="/dashboard" component={DashboardPage} />
-          <PrivateRoute path="/addpost" component={AddPostPage} />
-          <PrivateRoute path="/user_list" component={UserList} />
-          <PrivateRoute path="/edit" component={EditUser} />
-          <PrivateRoute path="/job_list" component={JobList} />
-          <PrivateRoute path="/admin_job_list" component={AdminJobList} />
-          <PrivateRoute path="/job_edit" component={EditJob} />
-          <PrivateRoute path="/sales_daily_details" component={SalesDetails} />
-          <PrivateRoute path="/leads_list" component={LeadsList} />
-          <PrivateRoute path="/lead_details" component={LeadDetails} />
-          <PrivateRoute path="/lead_edit" component={EditLead} />
-          <PrivateRoute path="/my_leads" component={MyLeads} />
-          <PrivateRoute path="/lead_scedule" component={LeadSchedule} />
+          <PublicRoute exact path="/signup" component={SignUpPage} />
+          <PrivateRoute exact path="/dashboard" component={DashboardPage} />
+          <PrivateRoute exact path="/addpost" component={AddPostPage} />
+          <PrivateRoute exact exact path="/user_list" component={UserList} />
+          <PrivateRoute exact path="/edit" component={EditUser} />
+          <PrivateRoute exact path="/job_list" component={JobList} />
+          <PrivateRoute exact path="/admin_job_list" component={AdminJobList} />
+          <PrivateRoute exact path="/job_edit" component={EditJob} />
+          <PrivateRoute
+            exact
+            path="/sales_daily_details"
+            component={SalesDetails}
+          />
+          <PrivateRoute exact path="/leads_list" component={LeadsList} />
+          <PrivateRoute exact path="/lead_details" component={LeadDetails} />
+          <PrivateRoute exact path="/lead_edit" component={EditLead} />
+          <PrivateRoute exact path="/my_leads" component={MyLeads} />
+          <PrivateRoute exact path="/lead_scedule" component={LeadSchedule} />
+          <PrivateRoute exact path="/user_report" component={UserReport} />
+          <PrivateRoute exact path="/user_details" component={UserDetails} />
         </Switch>
       </Router>
     </Fragment>

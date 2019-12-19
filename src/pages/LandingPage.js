@@ -7,9 +7,9 @@ import HeroUnit from "../components/HeroUnit";
 import CardGrid from "../components/CardGrid";
 
 const LandingPage = ({ auth }) => {
-  if (auth) {
-    return <Redirect to="/dashboard" />;
-  }
+  // if (auth) {
+  //   return <Redirect to="/addpost" />;
+  // }
   return (
     <React.Fragment>
       <NavMain>

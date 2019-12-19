@@ -11,7 +11,7 @@ export class LoginPage extends React.Component {
   onSubmit = e => {
     e.preventDefault();
     this.props.login();
-    this.props.history.push("/dashboard");
+    //this.props.history.push("/dashboard");
   };
 
   render() {
@@ -23,7 +23,4 @@ export class LoginPage extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  { login }
-)(LoginPage);
+export default connect(null, { login })(LoginPage);

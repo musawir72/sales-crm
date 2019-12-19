@@ -48,9 +48,9 @@ const styles = theme => ({
 });
 
 const SignIn = ({ logIn, history, classes, auth }) => {
-  if (auth) {
-    return <Redirect to="/dashboard" />;
-  }
+  // if (auth) {
+  //   return <Redirect to="/job_list" />;
+  // }
   const [formData, setFormData] = useState({
     registration_number: null,
     password: null

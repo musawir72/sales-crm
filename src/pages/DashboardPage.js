@@ -113,7 +113,7 @@ const DashboardPage = () => {
   return (
     <React.Fragment>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5 offset-md-1">
           <div style={jumbo} class="jumbotron jumbotron-fluid">
             <h1 style={h1} class="text-center">
               Previous Week Report
@@ -157,7 +157,7 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-5">
           <div style={jumbo} class="jumbotron jumbotron-fluid">
             <h1 style={h1} class="text-center">
               Previous Month Report
