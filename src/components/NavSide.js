@@ -105,7 +105,7 @@ const mailFolderListItems = ({ user, classes }) => {
           )}
         </List>
       </Collapse>
-      {raceName == "super_admin" ? (
+      {raceName == "super_admin" || raceName == "admin" ? (
         <ListItem button onClick={userHandleClick}>
           <ListItemIcon>
             <PersonIcon className={classes.root} />
