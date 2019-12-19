@@ -117,6 +117,7 @@ const DashboardPage = ({ user }) => {
       var name = user[i].name;
     }
   }
+
   return (
     <React.Fragment>
       {raceName == "super_admin" ? (
@@ -215,6 +216,11 @@ const DashboardPage = ({ user }) => {
         </div>
       ) : (
         <h1>Welcome "{name}" to Sales CRM</h1>
+      )}
+      {raceName == undefined ? (
+        <p>Thanks for Registration wait Untill an Admin Verified you</p>
+      ) : (
+        ""
       )}
     </React.Fragment>
   );
