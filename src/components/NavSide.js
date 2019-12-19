@@ -60,23 +60,30 @@ const mailFolderListItems = ({ user, classes }) => {
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
-
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>
-          <WorkOutlineIcon className={classes.root} />
-        </ListItemIcon>
-        <ListItemText primary="Sales" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
+      {raceName == "user" || raceName == "super_admin" ? (
+        <ListItem button onClick={handleClick}>
+          <ListItemIcon>
+            <WorkOutlineIcon className={classes.root} />
+          </ListItemIcon>
+          <ListItemText primary="Sales" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+      ) : (
+        ""
+      )}
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button component={Link} to="/job_list">
-            <ListItemIcon>
-              <ListIcon className={classes.root} />
-            </ListItemIcon>
-            <ListItemText primary="Job List" />
-          </ListItem>
-          {raceName == "admin" || raceName == "super_admin" ? (
+          {raceName == "user" || raceName == "super_admin" ? (
+            <ListItem button component={Link} to="/job_list">
+              <ListItemIcon>
+                <ListIcon className={classes.root} />
+              </ListItemIcon>
+              <ListItemText primary="Job List" />
+            </ListItem>
+          ) : (
+            ""
+          )}
+          {raceName == "super_admin" ? (
             <ListItem button component={Link} to="/admin_job_list">
               <ListItemIcon>
                 <SupervisorAccountIcon className={classes.root} />
@@ -86,7 +93,7 @@ const mailFolderListItems = ({ user, classes }) => {
           ) : (
             ""
           )}
-          {raceName == "admin" || raceName == "super_admin" ? (
+          {raceName == "super_admin" ? (
             <ListItem button component={Link} to="/sales_daily_details">
               <ListItemIcon>
                 <WorkIcon className={classes.root} />
@@ -156,18 +163,26 @@ const mailFolderListItems = ({ user, classes }) => {
               ) : (
                 ""
               )}
-              <ListItem button component={Link} to="/my_leads">
-                <ListItemIcon>
-                  <ListIcon className={classes.root} />
-                </ListItemIcon>
-                <ListItemText primary="My Leads" />
-              </ListItem>
-              <ListItem button component={Link} to="/lead_scedule">
-                <ListItemIcon>
-                  <ListIcon className={classes.root} />
-                </ListItemIcon>
-                <ListItemText primary="Lead Scheduler" />
-              </ListItem>
+              {raceName == "super_admin" || raceName == "admin" ? (
+                <ListItem button component={Link} to="/my_leads">
+                  <ListItemIcon>
+                    <ListIcon className={classes.root} />
+                  </ListItemIcon>
+                  <ListItemText primary="My Leads" />
+                </ListItem>
+              ) : (
+                ""
+              )}
+              {raceName == "super_admin" || raceName == "admin" ? (
+                <ListItem button component={Link} to="/lead_scedule">
+                  <ListItemIcon>
+                    <ListIcon className={classes.root} />
+                  </ListItemIcon>
+                  <ListItemText primary="Lead Scheduler" />
+                </ListItem>
+              ) : (
+                ""
+              )}
             </List>
           </Collapse>
         </React.Fragment>

@@ -84,6 +84,7 @@ export default function salesDetail({ history }) {
             <TableCell>Company Name</TableCell>
             <TableCell>Client Name</TableCell>
             <TableCell>Profile</TableCell>
+            <TableCell>Call Date</TableCell>
             <TableCell>Call Time</TableCell>
             <TableCell>Time Zone</TableCell>
             <TableCell>Call Status</TableCell>
@@ -127,6 +128,18 @@ export default function salesDetail({ history }) {
                 }
               >
                 {row.profile}
+              </TableCell>
+              <TableCell
+                component="th"
+                scope="row"
+                onClick={() =>
+                  history.push({
+                    pathname: "/lead_details",
+                    state: { detail: row }
+                  })
+                }
+              >
+                {row.call_date}
               </TableCell>
               <TableCell
                 component="th"

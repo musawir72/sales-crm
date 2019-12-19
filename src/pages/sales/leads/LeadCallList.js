@@ -50,7 +50,7 @@ export default function salesDetail({ history }) {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Assigned To</TableCell>
+            <TableCell>Name</TableCell>
             <TableCell>Call Time</TableCell>
             <TableCell>Time Zone</TableCell>
             <TableCell>Call Date</TableCell>
