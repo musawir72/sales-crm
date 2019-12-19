@@ -49,9 +49,9 @@ const mailFolderListItems = ({ user, classes }) => {
   if (user) {
     for (var i = 0; i < user.length; i++) {
       var raceName = user[i].role;
+      var name = user[i].name;
     }
   }
-
   return (
     <div>
       <ListItem button component={Link} to="/dashboard">
@@ -123,7 +123,7 @@ const mailFolderListItems = ({ user, classes }) => {
             ""
           )}
 
-          {raceName == "super_admin" ? (
+          {raceName == "admin" && name == "Muddasir Ahmed" ? (
             <ListItem button component={Link} to="/user_report">
               <ListItemIcon>
                 <ListIcon className={classes.root} />

@@ -49,7 +49,7 @@ const styles = theme => ({
 
 const SignIn = ({ logIn, history, classes, auth }) => {
   // if (auth) {
-  //   return <Redirect to="/job_list" />;
+  //    return <Redirect to="/dashboard" />;
   // }
   const [formData, setFormData] = useState({
     registration_number: null,
