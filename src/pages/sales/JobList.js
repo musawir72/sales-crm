@@ -10,6 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import AddJob from "./AddJob";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { useAlert } from "react-alert";
 import { fetchJob } from "../../actions/job";
 
 const columns = [
@@ -59,21 +60,14 @@ const useStyles = makeStyles({
     textAlign: "center",
     fontFamily: "initial",
     color: "blue"
-  },
-  job: {
-    backgroundColor: "#818675",
-    fontFamily: "monospace"
-  },
-  lead: {
-    backgroundColor: "#008000bf",
-    fontFamily: "monospace"
   }
 });
 const jobList = ({ fetchJob, job }) => {
+  const alert = useAlert();
   const [count, setCount] = useState(0);
   useEffect(() => {
     fetchJob();
-  }, [count]);
+  }, []);
 
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
@@ -88,8 +82,25 @@ const jobList = ({ fetchJob, job }) => {
     setPage(0);
   };
 
-  const countAdd = () => {
-    setCount(count + 1);
+  const countAdd = (
+    company_name,
+    job_title,
+    url,
+    profile,
+    location,
+    salary
+  ) => {
+    job.push({
+      companyName: company_name,
+      job_title,
+      url,
+      profile,
+      location,
+      salary
+    });
+    if (company_name && url && profile) {
+      alert.success("Job Successfully Added !");
+    }
   };
 
   return (

@@ -141,11 +141,32 @@ const AddJob = ({ addJob, history, job, count }) => {
     }
   };
 
+  const searchHandlerUrl = e => {
+    if (e.target.value) {
+      setFormData({
+        ...formData,
+        url: e.target.value
+      });
+      const exist = job.filter(item => {
+        return item.url.toLowerCase() == e.target.value.toLowerCase();
+      });
+      if (exist.length > 0) {
+        setExist("URI Already Exist");
+      } else {
+        setExist("");
+      }
+    } else {
+      setExist("");
+    }
+  };
+
   const onSubmitHandler = e => {
     e.preventDefault();
-    addJob(company_name, job_title, url, profile, location, salary, history);
-    count();
-    return <Redirect to="/job_list" />;
+    if (!exist && !existComp) {
+      addJob(company_name, job_title, url, profile, location, salary, history);
+      count(company_name, job_title, url, profile, location, salary);
+      setOpen(false);
+    }
   };
   return (
     <div>
@@ -213,7 +234,7 @@ const AddJob = ({ addJob, history, job, count }) => {
                 name="url"
                 className={classes.textField}
                 margin="normal"
-                onChange={onChangeHandler}
+                onChange={searchHandlerUrl}
               />
               <span className={classes.error1}>{exist}</span>
               <br></br>
