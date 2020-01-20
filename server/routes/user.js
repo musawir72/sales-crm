@@ -119,17 +119,6 @@ Route.delete("/:id", auth, async (req, res) => {
 Route.post(
   "/edit",
   auth,
-  [
-    check("name", "Name is required")
-      .not()
-      .isEmpty(),
-    check("designation", "Designation Field is required")
-      .not()
-      .isEmpty(),
-    check("role", "Role is required")
-      .not()
-      .isEmpty()
-  ],
 
   async (req, res) => {
     const errors = validationResult(req);
@@ -137,7 +126,14 @@ Route.post(
       return res.status(422).json({ errors: errors.array() });
     }
 
-    let { registration_number, name, designation, id, role } = req.body;
+    let {
+      registration_number,
+      name,
+      designation,
+      id,
+      role,
+      profile
+    } = req.body;
     console.log(role);
     try {
       let result = await User.update(
@@ -145,7 +141,8 @@ Route.post(
           registrationNumber: registration_number,
           name: name,
           designation: designation,
-          role
+          role,
+          profile
         },
         { where: { id: id } }
       );

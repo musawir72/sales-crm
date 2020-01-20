@@ -15,8 +15,9 @@ import { Redirect, withRouter } from "react-router-dom";
 import compose from "recompose/compose";
 import { useAlert } from "react-alert";
 import Select from "@material-ui/core/Select";
-
+import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
 
 const styles = theme => ({
   layout: {
@@ -61,9 +62,10 @@ const styles = theme => ({
 const editUser = ({ classes, children, history, location, updateUser }) => {
   //const alert = useAlert();
   const [formData, setFormData] = useState(location.state.detail);
-
+  const [open, setOpen] = React.useState(false);
   const { registrationNumber, name, designation, id } = formData;
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(formData.role);
+  const [profile, setProfile] = useState(formData.profile);
   const onChangeHandler = e => {
     setFormData({
       ...formData,
@@ -73,12 +75,33 @@ const editUser = ({ classes, children, history, location, updateUser }) => {
   const onSubmitHandler = e => {
     e.preventDefault();
 
-    updateUser(registrationNumber, name, designation, id, role, history);
+    updateUser(
+      registrationNumber,
+      name,
+      designation,
+      id,
+      role,
+      profile,
+      history
+    );
     alert.success("User Updated !");
   };
 
   const roleHandler = e => {
+    console.log("roleHandler ::::::::::::: ", e.target.value);
     setRole(e.target.value);
+  };
+
+  const profileHandler = e => {
+    setProfile(e.target.value);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
   };
   return (
     <React.Fragment>
@@ -126,26 +149,43 @@ const editUser = ({ classes, children, history, location, updateUser }) => {
               value={formData.designation}
               onChange={onChangeHandler}
             />
-            <TextField
-              id="designation"
-              label="Assign"
-              margin="normal"
-              type="text"
-              className={classes.textField}
-              value={formData.designation}
-              onChange={onChangeHandler}
-            />
+
+            <InputLabel id="demo-controlled-open-select-label">Role</InputLabel>
             <Select
-              id="role"
-              label="Role"
-              className={classes.textField}
-              margin="normal"
+              // open={open}
+              // onClose={handleClose}
+              // onOpen={handleOpen}
               onChange={roleHandler}
+              className={classes.textField}
+              value={role}
             >
+              <MenuItem value="None">
+                <em>None</em>
+              </MenuItem>
               <MenuItem value="super_admin">Super Admin</MenuItem>
               <MenuItem value="admin">Admin</MenuItem>
               <MenuItem value="user">User</MenuItem>
             </Select>
+
+            <InputLabel id="demo-controlled-open-select-label">
+              Profile
+            </InputLabel>
+            <Select
+              // open={open}
+              // onClose={handleClose}
+              // onOpen={handleOpen}
+              onChange={profileHandler}
+              className={classes.textField}
+              value={profile}
+            >
+              <MenuItem value="None">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="Ali Muhammad">Ali Muhammad</MenuItem>
+              <MenuItem value="Amir Khan">Amir Khan</MenuItem>
+              <MenuItem value="Kevan Jay">Kevn Jay</MenuItem>
+            </Select>
+
             <Button
               variant="contained"
               color="primary"

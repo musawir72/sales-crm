@@ -124,9 +124,10 @@ const PaperSheet = ({ signUp, classes, history }) => {
               onChange={setSelectHandler}
             >
               <MenuItem value="Developer">Developer</MenuItem>
-              <MenuItem value="Sales">Sales</MenuItem>
+
               <MenuItem value="Project Manger">Project Manger</MenuItem>
               <MenuItem value="Sales Manger">Sales Manger</MenuItem>
+              <MenuItem value="Sales">Sales User</MenuItem>
             </Select>
             <TextField
               id="password"

@@ -48,6 +48,7 @@ export const updateUser = (
   designation,
   id,
   role,
+  profile,
   history
 ) => async dispatch => {
   const config = {
@@ -61,7 +62,8 @@ export const updateUser = (
     name,
     designation,
     id,
-    role
+    role,
+    profile
   });
 
   try {
