@@ -289,62 +289,63 @@ const AddJob = ({ addJob, history, job, count }) => {
       {compExist.length > 0 ? (
         <div className={classes.compExist}>
           <h1 className={classes.header}>Job Alredy Exist</h1>
-          <ul style={{ listStyleType: "none" }}>
+          <ul style={{ listStyleType: "none", textAlign: "left", margin: "0" }}>
             {compExist.map((comp, index) => {
               return (
                 <Fragment>
                   <li
                     style={{
-                      marginBottom: "8px",
-                      fontSize: "18px",
+                      marginBottom: "5px",
+                      fontSize: "15px",
                       display: "inline-block",
                       width: "50%"
                     }}
                   >
-                    <b>Company Name:</b>
+                    <b style={{ marginRight: "10px" }}>Company Name:</b>
                     <span>{comp.companyName}</span>
                   </li>
                   <li
                     style={{
-                      marginBottom: "8px",
-                      fontSize: "18px",
+                      marginBottom: "5px",
+                      fontSize: "15px",
                       display: "inline-block",
                       width: "50%"
                     }}
                   >
-                    <b>URL:</b>
+                    <b style={{ marginRight: "10px" }}>URL:</b>
                     <span>{comp.url}</span>
                   </li>
                   <li
                     style={{
-                      marginBottom: "8px",
-                      fontSize: "18px",
+                      marginBottom: "5px",
+                      fontSize: "15px",
                       display: "inline-block",
                       width: "50%"
                     }}
                   >
-                    <b>Job Title:</b>
+                    <b style={{ marginRight: "10px" }}>Job Title:</b>
                     <span>{comp.job_title}</span>
                   </li>
                   <li
                     style={{
-                      marginBottom: "8px",
-                      fontSize: "18px",
+                      marginBottom: "5px",
+                      fontSize: "15px",
                       display: "inline-block",
                       width: "50%"
                     }}
                   >
-                    <b>Profile:</b> <span>{comp.profile}</span>
+                    <b style={{ marginRight: "10px" }}>Profile:</b>{" "}
+                    <span>{comp.profile}</span>
                   </li>
                   <li
                     style={{
-                      marginBottom: "8px",
-                      fontSize: "18px",
+                      marginBottom: "5px",
+                      fontSize: "15px",
                       display: "inline-block",
                       width: "50%"
                     }}
                   >
-                    <b> CreateAt:</b>
+                    <b style={{ marginRight: "10px" }}> CreateAt:</b>
                     <span>{comp.createdAt}</span>
                   </li>
                   <hr></hr>
