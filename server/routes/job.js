@@ -54,9 +54,6 @@ Route.post(
         .isEmpty(),
       check("url", "URL Name is required")
         .not()
-        .isEmpty(),
-      check("profile", "Profile name is required")
-        .not()
         .isEmpty()
     ]
   ],
@@ -66,16 +63,20 @@ Route.post(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    const {
-      company_name,
-      url,
-      profile,
-      job_title,
-      location,
-      salary
-    } = req.body;
+    const { company_name, url, job_title, location, salary } = req.body;
 
     const registration_number = req.user.user.id;
+
+    //get current user profile name
+    const user_profile = await User.findAll({
+      attributes: ["profile"],
+      where: {
+        registrationNumber: registration_number
+      }
+    }).map(el => el.get("profile"));
+    let profile = user_profile[0];
+
+    //check if company already exist
     const company = await Job.count({
       where: { companyName: company_name }
     });
@@ -86,6 +87,7 @@ Route.post(
         .json({ errors: [{ msg: "Company Name Already Exist" }] });
     }
 
+    //chaeck url if already exist
     const link = await Job.count({
       where: { url: url }
     });
@@ -749,4 +751,22 @@ Route.get("/status_rejected_lead_monthly_count", auth, async (req, res) => {
     return res.status(402).json({ msg: "Server Error" });
   }
 });
+
+// user daily job created
+Route.get("/user_daily_job_created", auth, async (req, res) => {
+  try {
+    const result = await Job.findAll({
+      where: {
+        createdAt: new Date(),
+        userId: req.user.user.id
+      }
+    });
+
+    res.json({ result });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(402).json({ msg: "Server Error" });
+  }
+});
+
 module.exports = Route;

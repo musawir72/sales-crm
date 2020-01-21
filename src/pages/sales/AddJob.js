@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -33,7 +33,17 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     border: "2px solid 6c697859",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
+    padding: theme.spacing(2, 4, 3),
+    width: "58%"
+  },
+  compExist: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid 6c697859",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    width: "41%",
+    float: "right",
+    marginTop: "-247px"
   },
   button: {
     position: "relative"
@@ -58,32 +68,38 @@ const useStyles = makeStyles(theme => ({
     width: "100%"
   },
   avatar: {
-    margin: `${theme.spacing.unit}px auto`,
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
+    margin: " 0 auto"
   },
   typography: {
     fontFamily: "initial",
     fontSize: "25px",
     position: "relative",
-    left: "308px"
+    left: "360px"
   },
   error1: {
     position: "absolute",
-    right: "491px",
-    top: "363px",
+    right: "777px",
+    top: "226px",
     color: "red"
   },
   error2: {
     position: "absolute",
-    top: "360px",
+    top: "227px",
     color: "red"
   },
-  top: {
+  profile: {
     marginTop: "24px"
+  },
+  header: {
+    textAlign: "center",
+    fontSize: "20px",
+    color: "red"
   }
 }));
 
 const AddJob = ({ addJob, history, job, count }) => {
+  const [dailyJob, setDailyJob] = useState([]);
   const [formData, setFormData] = useState({
     job_title: null,
     profile: null,
@@ -95,6 +111,7 @@ const AddJob = ({ addJob, history, job, count }) => {
 
   const [exist, setExist] = useState("");
   const [existComp, setExistComp] = useState("");
+  const [compExist, setCompExist] = useState([]);
 
   const { company_name, job_title, url, profile, location, salary } = formData;
   const classes = useStyles();
@@ -131,12 +148,16 @@ const AddJob = ({ addJob, history, job, count }) => {
       const exist = job.filter(item => {
         return item.companyName.toLowerCase() == e.target.value.toLowerCase();
       });
+
       if (exist.length > 0) {
         setExistComp("Company Name Already Exist");
+        setCompExist(exist);
       } else {
+        setCompExist([]);
         setExistComp("");
       }
     } else {
+      setCompExist([]);
       setExistComp("");
     }
   };
@@ -165,119 +186,108 @@ const AddJob = ({ addJob, history, job, count }) => {
     if (!exist && !existComp) {
       addJob(company_name, job_title, url, profile, location, salary, history);
       count(company_name, job_title, url, profile, location, salary);
-      setOpen(false);
     }
   };
+
+  console.log(compExist, "eeeeeeee");
   return (
     <div>
-      <Tooltip
-        title="Add"
-        aria-label="add"
-        onClick={handleOpen}
-        className={classes.button}
-      >
-        <Fab color="primary">
-          <AddIcon />
-        </Fab>
-      </Tooltip>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <HowToReg />
-            </Avatar>
-            <Typography
-              className={classes.typography}
-              align="center"
-              variant="headline"
-            >
-              Add new Job
-            </Typography>
-            <form
-              onSubmit={onSubmitHandler}
-              className={classes.root}
-              noValidate
-              autoComplete="off"
-            >
-              <span className={classes.error2}>{existComp}</span>
-              <TextField
-                autoFocus
-                id="company_name"
-                label="Company Name"
-                className={classes.textField}
-                margin="normal"
-                onChange={searchHandler}
-              />
-              <TextField
-                id="job_title"
-                label="Job Title"
-                type="text"
-                className={classes.textField}
-                margin="normal"
-                onChange={onChangeHandler}
-              />
-              <TextField
-                id="url"
-                label="URL"
-                type="text"
-                name="url"
-                className={classes.textField}
-                margin="normal"
-                onChange={searchHandlerUrl}
-              />
-              <span className={classes.error1}>{exist}</span>
-              <br></br>
-
-              <Select
-                id="select"
-                label="Designation"
-                className={(classes.textField, classes.top)}
-                margin="normal"
-                onChange={selectHandler}
-              >
-                <MenuItem value="Ali Muhammad">Ali Muhammad</MenuItem>
-                <MenuItem value="Kevin Jay">Kevin Jay</MenuItem>
-                <MenuItem value="Danish Khan">Danish Khan</MenuItem>
-              </Select>
-              <TextField
-                id="location"
-                label="Location"
-                type="text"
-                className={classes.textField}
-                margin="normal"
-                onChange={onChangeHandler}
-              />
-              <TextField
-                id="salary"
-                label="Salary"
-                type="text"
-                className={classes.textField}
-                margin="normal"
-                onChange={onChangeHandler}
-              />
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                className={classes.buttonform}
-              >
-                Add Job
-              </Button>
-            </form>
-          </div>
-        </Fade>
-      </Modal>
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <HowToReg />
+        </Avatar>
+        <Typography
+          className={classes.typography}
+          align="center"
+          variant="headline"
+        >
+          Add new Job
+        </Typography>
+        <form
+          onSubmit={onSubmitHandler}
+          className={classes.root}
+          noValidate
+          autoComplete="off"
+        >
+          <span className={classes.error2}>{existComp}</span>
+          <TextField
+            autoFocus
+            id="company_name"
+            label="Company Name"
+            margin="normal"
+            onChange={searchHandler}
+          />
+          <TextField
+            id="job_title"
+            label="Job Title"
+            type="text"
+            margin="normal"
+            onChange={onChangeHandler}
+          />
+          <TextField
+            id="url"
+            label="URL"
+            type="text"
+            name="url"
+            margin="normal"
+            onChange={searchHandlerUrl}
+          />
+          <span className={classes.error1}>{exist}</span>
+          <br></br>
+          <TextField
+            id="location"
+            label="Location"
+            type="text"
+            margin="normal"
+            onChange={onChangeHandler}
+          />
+          <TextField
+            id="salary"
+            label="Salary"
+            type="text"
+            margin="normal"
+            onChange={onChangeHandler}
+          />
+          <Button
+            className={classes.profile}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Add Job
+          </Button>
+        </form>
+      </div>
+      {compExist.length > 0 ? (
+        <div className={classes.compExist}>
+          <h1 className={classes.header}>Job Alredy Exist</h1>
+          <ul style={{ listStyleType: "none" }}>
+            {compExist.map((comp, index) => {
+              return (
+                <Fragment>
+                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                    Company Name:<span>{comp.companyName}</span>
+                  </li>
+                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                    URL:<span>{comp.url}</span>
+                  </li>
+                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                    Job Title:<span>{comp.job_title}</span>
+                  </li>
+                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                    Profile:<span>{comp.profile}</span>
+                  </li>
+                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                    CreateAt:<span>{comp.createdAt}</span>
+                  </li>
+                </Fragment>
+              );
+            })}
+          </ul>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

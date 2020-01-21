@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useAlert } from "react-alert";
 import { fetchJob } from "../../actions/job";
-
+import axios from "axios";
 const columns = [
   { id: "name", label: "Company Name", minWidth: 170 },
   { id: "code", label: "Job Title", minWidth: 100, align: "center" },
@@ -54,7 +54,8 @@ const useStyles = makeStyles({
   },
   tableWrapper: {
     maxHeight: 622,
-    overflow: "auto"
+    overflow: "auto",
+    marginTop: "39px"
   },
   jobHeader: {
     textAlign: "center",
@@ -64,11 +65,19 @@ const useStyles = makeStyles({
 });
 const jobList = ({ fetchJob, job }) => {
   const alert = useAlert();
+  const [dailyJob, setDailyJob] = useState([]);
   const [count, setCount] = useState(0);
-  useEffect(() => {
+
+  useEffect(async () => {
     fetchJob();
+    const res = await axios.get(
+      "http://localhost:5000/api/job/user_daily_job_created"
+    );
+
+    setDailyJob(res.data.result);
   }, []);
 
+  console.log(dailyJob, "dailyyyyyyyy");
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -90,7 +99,7 @@ const jobList = ({ fetchJob, job }) => {
     location,
     salary
   ) => {
-    job.push({
+    dailyJob.push({
       companyName: company_name,
       job_title,
       url,
@@ -98,16 +107,16 @@ const jobList = ({ fetchJob, job }) => {
       location,
       salary
     });
-    if (company_name && url && profile) {
+    if (company_name && url) {
       alert.success("Job Successfully Added !");
     }
   };
 
   return (
     <Paper className={classes.root}>
-      <h1 className={classes.jobHeader}>Job List</h1>
       <AddJob job={job} count={countAdd} />
       <div className={classes.tableWrapper}>
+        <h1 className={classes.jobHeader}>Job List</h1>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -123,7 +132,7 @@ const jobList = ({ fetchJob, job }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {job
+            {dailyJob
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(row => {
                 return (
@@ -157,7 +166,7 @@ const jobList = ({ fetchJob, job }) => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={job.length}
+        count={dailyJob.length}
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{
