@@ -54,6 +54,9 @@ Route.post(
         .isEmpty(),
       check("url", "URL Name is required")
         .not()
+        .isEmpty(),
+      check("job_title", "Job Title is required")
+        .not()
         .isEmpty()
     ]
   ],
@@ -76,24 +79,29 @@ Route.post(
     }).map(el => el.get("profile"));
     let profile = user_profile[0];
 
-    //check if company already exist
-    const company = await Job.count({
+    // fetch company profile if already exist
+    const job_company = await Job.findAll({
       where: { companyName: company_name }
+    }).map(el => el.get("profile"));
+
+    const job_profile = job_company.filter(prop => {
+      return prop.toLowerCase() == profile.toLowerCase();
     });
 
-    if (company) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: "Company Name Already Exist" }] });
-    }
-
-    //chaeck url if already exist
-    const link = await Job.count({
-      where: { url: url }
-    });
-
-    if (link) {
-      return res.status(400).json({ errors: [{ msg: "Url Already Exist" }] });
+    // check if the user profile have alreday applied to this company
+    if (job_profile.length > 0) {
+      return res.status(400).json({
+        errors: [
+          {
+            msg:
+              company_name +
+              " " +
+              "have already applied by" +
+              " " +
+              job_profile[0]
+          }
+        ]
+      });
     }
     try {
       let job = await Job.create({

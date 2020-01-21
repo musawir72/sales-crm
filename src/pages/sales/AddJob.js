@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3),
     width: "41%",
     float: "right",
-    marginTop: "-247px"
+    marginTop: "-481px"
   },
   button: {
     position: "relative"
@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "initial",
     fontSize: "25px",
     position: "relative",
-    left: "360px"
+    left: "323px"
   },
   error1: {
     position: "absolute",
@@ -168,25 +168,13 @@ const AddJob = ({ addJob, history, job, count }) => {
         ...formData,
         url: e.target.value
       });
-      const exist = job.filter(item => {
-        return item.url.toLowerCase() == e.target.value.toLowerCase();
-      });
-      if (exist.length > 0) {
-        setExist("URI Already Exist");
-      } else {
-        setExist("");
-      }
-    } else {
-      setExist("");
     }
   };
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    if (!exist && !existComp) {
-      addJob(company_name, job_title, url, profile, location, salary, history);
-      count(company_name, job_title, url, profile, location, salary);
-    }
+    addJob(company_name, job_title, url, profile, location, salary, history);
+    count(company_name, job_title, url);
   };
 
   console.log(compExist, "eeeeeeee");
@@ -203,12 +191,52 @@ const AddJob = ({ addJob, history, job, count }) => {
         >
           Add new Job
         </Typography>
-        <form
-          onSubmit={onSubmitHandler}
-          className={classes.root}
-          noValidate
-          autoComplete="off"
-        >
+
+        <form onSubmit={onSubmitHandler} noValidate autoComplete="off">
+          <div className="form-group">
+            <label for="company_name">Company Name:</label>
+            <input
+              autoFocus
+              id="company_name"
+              onChange={searchHandler}
+              type="text"
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <label for="job_title">Job Title:</label>
+            <input
+              id="job_title"
+              className="form-control"
+              type="text"
+              onChange={onChangeHandler}
+            />
+          </div>
+          <div className="form-group">
+            <label for="url">URL:</label>
+            <input
+              id="url"
+              type="text"
+              name="url"
+              onChange={searchHandlerUrl}
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <label for="location">Location:</label>
+            <input
+              id="location"
+              type="text"
+              name="location"
+              onChange={onChangeHandler}
+              className="form-control"
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Add Job
+          </button>
+        </form>
+        {/* <form onSubmit={onSubmitHandler} noValidate autoComplete="off">
           <span className={classes.error2}>{existComp}</span>
           <TextField
             autoFocus
@@ -256,7 +284,7 @@ const AddJob = ({ addJob, history, job, count }) => {
           >
             Add Job
           </Button>
-        </form>
+        </form> */}
       </div>
       {compExist.length > 0 ? (
         <div className={classes.compExist}>
@@ -265,21 +293,57 @@ const AddJob = ({ addJob, history, job, count }) => {
             {compExist.map((comp, index) => {
               return (
                 <Fragment>
-                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                  <li
+                    style={{
+                      marginBottom: "8px",
+                      fontSize: "18px",
+                      display: "inline-block",
+                      width: "50%"
+                    }}
+                  >
                     Company Name:<span>{comp.companyName}</span>
                   </li>
-                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                  <li
+                    style={{
+                      marginBottom: "8px",
+                      fontSize: "18px",
+                      display: "inline-block",
+                      width: "50%"
+                    }}
+                  >
                     URL:<span>{comp.url}</span>
                   </li>
-                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                  <li
+                    style={{
+                      marginBottom: "8px",
+                      fontSize: "18px",
+                      display: "inline-block",
+                      width: "50%"
+                    }}
+                  >
                     Job Title:<span>{comp.job_title}</span>
                   </li>
-                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                  <li
+                    style={{
+                      marginBottom: "8px",
+                      fontSize: "18px",
+                      display: "inline-block",
+                      width: "50%"
+                    }}
+                  >
                     Profile:<span>{comp.profile}</span>
                   </li>
-                  <li style={{ marginBottom: "8px", fontSize: "18px" }}>
+                  <li
+                    style={{
+                      marginBottom: "8px",
+                      fontSize: "18px",
+                      display: "inline-block",
+                      width: "50%"
+                    }}
+                  >
                     CreateAt:<span>{comp.createdAt}</span>
                   </li>
+                  <hr></hr>
                 </Fragment>
               );
             })}

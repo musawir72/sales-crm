@@ -91,21 +91,11 @@ const jobList = ({ fetchJob, job }) => {
     setPage(0);
   };
 
-  const countAdd = (
-    company_name,
-    job_title,
-    url,
-    profile,
-    location,
-    salary
-  ) => {
+  const countAdd = (company_name, job_title, url) => {
     dailyJob.push({
       companyName: company_name,
       job_title,
-      url,
-      profile,
-      location,
-      salary
+      url
     });
     if (company_name && url) {
       alert.success("Job Successfully Added !");

@@ -120,6 +120,9 @@ const styles = theme => ({
   },
   color: {
     color: "white"
+  },
+  h4: {
+    margin: "0 auto"
   }
 });
 
@@ -130,19 +133,19 @@ class NavMain extends React.Component {
   };
 
   renderButtons = () => {
-    const { auth, classes } = this.props;
+    const { auth, classes, user } = this.props;
 
+    if (user) {
+      for (var i = 0; i < user.length; i++) {
+        var name = user[i].name;
+        var profile = user[i].profile;
+      }
+    }
     if (auth) {
       return (
         <React.Fragment>
-          <Button
-            color="inherit"
-            to="/addpost"
-            component={Link}
-            className={classes.pushRight}
-          >
-            Add Post
-          </Button>
+          <h4 className={classes.h4}>Profile name :{profile}</h4>
+
           <Button
             onClick={this.handleLogout}
             color="inherit"
@@ -202,6 +205,7 @@ class NavMain extends React.Component {
     if (user) {
       for (var i = 0; i < user.length; i++) {
         var name = user[i].name;
+        var profile = user[i].profile;
         var registrer = user[i].registrationNumber;
       }
     }
