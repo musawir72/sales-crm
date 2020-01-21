@@ -542,7 +542,7 @@ const mapStateToProps = state => ({
   job: state.JobReducer.job
 });
 adminjobList.propTypes = {
-  fetchJob: PropTypes.func.isRequired,
+  fetchJob: PropTypes.func,
   deleteJob: PropTypes.func.isRequired,
   fetchUser: PropTypes.func.isRequired
 };

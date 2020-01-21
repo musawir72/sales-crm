@@ -53,9 +53,7 @@ const useStyles = makeStyles({
     width: "100%"
   },
   tableWrapper: {
-    maxHeight: 622,
-    overflow: "auto",
-    marginTop: "39px"
+    overflow: "auto"
   },
   jobHeader: {
     textAlign: "center",
@@ -68,13 +66,13 @@ const jobList = ({ fetchJob, job }) => {
   const [dailyJob, setDailyJob] = useState([]);
   const [count, setCount] = useState(0);
 
-  useEffect(async () => {
+  useEffect(() => {
     fetchJob();
-    const res = await axios.get(
-      "http://localhost:5000/api/job/user_daily_job_created"
-    );
-
-    setDailyJob(res.data.result);
+    axios
+      .get("http://localhost:5000/api/job/user_daily_job_created")
+      .then(res => {
+        setDailyJob(res.data.result);
+      });
   }, []);
 
   console.log(dailyJob, "dailyyyyyyyy");

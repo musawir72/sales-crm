@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     border: "2px solid 6c697859",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+
     width: "41%",
     float: "right",
     marginTop: "-481px"
@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "initial",
     fontSize: "25px",
     position: "relative",
-    left: "323px"
+    left: "260px"
   },
   error1: {
     position: "absolute",
@@ -301,7 +301,8 @@ const AddJob = ({ addJob, history, job, count }) => {
                       width: "50%"
                     }}
                   >
-                    Company Name:<span>{comp.companyName}</span>
+                    <b>Company Name:</b>
+                    <span>{comp.companyName}</span>
                   </li>
                   <li
                     style={{
@@ -311,7 +312,8 @@ const AddJob = ({ addJob, history, job, count }) => {
                       width: "50%"
                     }}
                   >
-                    URL:<span>{comp.url}</span>
+                    <b>URL:</b>
+                    <span>{comp.url}</span>
                   </li>
                   <li
                     style={{
@@ -321,7 +323,8 @@ const AddJob = ({ addJob, history, job, count }) => {
                       width: "50%"
                     }}
                   >
-                    Job Title:<span>{comp.job_title}</span>
+                    <b>Job Title:</b>
+                    <span>{comp.job_title}</span>
                   </li>
                   <li
                     style={{
@@ -331,7 +334,7 @@ const AddJob = ({ addJob, history, job, count }) => {
                       width: "50%"
                     }}
                   >
-                    Profile:<span>{comp.profile}</span>
+                    <b>Profile:</b> <span>{comp.profile}</span>
                   </li>
                   <li
                     style={{
@@ -341,7 +344,8 @@ const AddJob = ({ addJob, history, job, count }) => {
                       width: "50%"
                     }}
                   >
-                    CreateAt:<span>{comp.createdAt}</span>
+                    <b> CreateAt:</b>
+                    <span>{comp.createdAt}</span>
                   </li>
                   <hr></hr>
                 </Fragment>
