@@ -63,7 +63,7 @@ module.exports = (env, argv) => {
       // for all 404 pages send back the html file
       historyApiFallback: true,
       publicPath: "/dist/",
-      port: 5001
+      port: 5000
     }
   };
 };
