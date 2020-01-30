@@ -61,6 +61,8 @@ module.exports = (env, argv) => {
     devServer: {
       contentBase: path.join(__dirname, "public"),
       // for all 404 pages send back the html file
+      inline: true,
+      host: "0.0.0.0",
       historyApiFallback: true,
       publicPath: "/dist/",
       port: 3000
