@@ -12,6 +12,6 @@ app.use(cors());
 app.use("/api/user", require("./routes/user"));
 app.use("/api/job", require("./routes/job"));
 app.use("/api/auth", require("./routes/auth"));
-app.listen(port, () => {
-  console.log("Server is up!");
+app.listen(port, "192.168.18.75", () => {
+  console.log("Server is up");
 });
