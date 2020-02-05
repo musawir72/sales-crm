@@ -13,7 +13,7 @@ var ip = require("ip");
 app.use("/api/user", require("./routes/user"));
 app.use("/api/job", require("./routes/job"));
 app.use("/api/auth", require("./routes/auth"));
-app.listen(port, () => {
+app.listen(port, ip.address(), () => {
   console.log("Server is up");
   console.log(ip.address());
 });

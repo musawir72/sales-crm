@@ -15,8 +15,9 @@ const options = {
   timeout: 5000,
   position: positions.TOP_RIGHT
 };
-
+const BASE_URL = REACT_APP_BASE_URL;
 export default () => {
+  console.log("vvvvv", BASE_URL);
   React.useEffect(() => {
     store.dispatch(loadUser());
   }, []);

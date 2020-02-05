@@ -32,6 +32,8 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import TextField from "@material-ui/core/TextField";
 import { fetchUser } from "../../../actions/user";
 import { Document, Page } from "react-pdf";
+
+const BASE_URL = REACT_APP_BASE_URL;
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -274,7 +276,7 @@ const adminjobList = ({ deleteJob, history, fetchUser, users }) => {
   const [job, setJob] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/job/leads").then(res => {
+    axios.get(BASE_URL + "/api/job/leads").then(res => {
       setJob(res.data.result);
     });
   }, [count]);
@@ -396,7 +398,7 @@ const adminjobList = ({ deleteJob, history, fetchUser, users }) => {
 
     try {
       const res = axios
-        .post("http://localhost:5000/api/job/assign_to", body, config)
+        .post(BASE_URL + "/api/job/assign_to", body, config)
         .then(response => {
           alert.success("Successfully Assigned !");
           setCount(count + 1);
@@ -420,7 +422,7 @@ const adminjobList = ({ deleteJob, history, fetchUser, users }) => {
     });
     try {
       const res = axios
-        .post("http://localhost:5000/api/job/call_status", body, config)
+        .post(BASE_URL + "/api/job/call_status", body, config)
         .then(response => {
           alert.success("Call Status Changed !");
           setCount(count + 1);
@@ -444,7 +446,7 @@ const adminjobList = ({ deleteJob, history, fetchUser, users }) => {
     });
     try {
       const res = axios
-        .post("http://localhost:5000/api/job/changed_staus", body, config)
+        .post(BASE_URL + "/api/job/changed_staus", body, config)
         .then(response => {
           alert.success("Job Status Changed !");
           setCount(count + 1);

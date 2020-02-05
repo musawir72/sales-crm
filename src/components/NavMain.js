@@ -280,7 +280,7 @@ class NavMain extends React.Component {
                 color="inherit"
                 noWrap
               >
-                <img src="https://cloudtek.biz/images/logo.png" />
+                Cloud Tek
               </Typography>
 
               {this.renderButtons()}

@@ -7,15 +7,22 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 // NODE_ENV will be 'production' on heroku, 'test' in testing env, and if neither it will be 'development'
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
+const BASE_URL = REACT_APP_BASE_URL;
+
 // Load test or development env variables
 if (process.env.NODE_ENV === "test") {
+  console.log("rrrrrrrr", process.env.NODE_ENV);
   require("dotenv").config({ path: ".env.test" });
 } else if (process.env.NODE_ENV === "development") {
   require("dotenv").config({ path: ".env.development" });
 }
 
 module.exports = (env, argv) => {
-  console.log(env);
+  console.log("ENV" + env);
+  const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
 
   return {
     entry: ["babel-polyfill", "./src/index.js"],
@@ -50,7 +57,7 @@ module.exports = (env, argv) => {
         inject: false
       }),
       new webpack.DefinePlugin({
-        // Define global constants here..
+        REACT_APP_BASE_URL: JSON.stringify("http://10.7.0.143:5000")
       }),
       new BundleAnalyzerPlugin({
         analyzerMode: "disable",
@@ -62,7 +69,7 @@ module.exports = (env, argv) => {
       contentBase: path.join(__dirname, "public"),
       // for all 404 pages send back the html file
       inline: true,
-      host: "0.0.0.0",
+      host: "10.7.0.143",
       historyApiFallback: true,
       publicPath: "/dist/",
       port: 3000

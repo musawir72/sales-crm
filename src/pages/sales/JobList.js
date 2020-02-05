@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { useAlert } from "react-alert";
 import { fetchJob } from "../../actions/job";
 import axios from "axios";
+const BASE_URL = REACT_APP_BASE_URL;
 const columns = [
   { id: "name", label: "Company Name", minWidth: 170 },
   { id: "code", label: "Job Title", minWidth: 100, align: "center" },
@@ -68,11 +69,9 @@ const jobList = ({ fetchJob, job }) => {
 
   useEffect(() => {
     fetchJob();
-    axios
-      .get("http://localhost:5000/api/job/user_daily_job_created")
-      .then(res => {
-        setDailyJob(res.data.result);
-      });
+    axios.get(BASE_URL + "/api/job/user_daily_job_created").then(res => {
+      setDailyJob(res.data.result);
+    });
   }, []);
 
   console.log(dailyJob, "dailyyyyyyyy");

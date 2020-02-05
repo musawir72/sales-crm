@@ -11,13 +11,14 @@ import {
   LOGOUT
 } from "../actions/types";
 import setAuthToken from "../utills/setAuthToken";
+const BASE_URL = REACT_APP_BASE_URL;
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
 
   try {
-    const res = await axios.get("http://localhost:5000/api/auth");
+    const res = await axios.get(BASE_URL + "/api/auth");
 
     dispatch({
       type: USER_LOADED,
@@ -51,11 +52,9 @@ export const signUp = (
   });
 
   try {
-    const res = await axios.post(
-      "http://localhost:5000/api/user",
-      body,
-      config
-    );
+    console.log(BASE_URL + "/api/user");
+    debugger;
+    const res = await axios.post(BASE_URL + "/api/user", body, config);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -99,11 +98,7 @@ export const logIn = (
   });
 
   try {
-    const res = await axios.post(
-      "http://localhost:5000/api/auth",
-      body,
-      config
-    );
+    const res = await axios.post(BASE_URL + "/api/auth", body, config);
 
     dispatch({
       type: LOGIN_SUCCESS,

@@ -30,7 +30,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import TextField from "@material-ui/core/TextField";
-
+const BASE_URL = REACT_APP_BASE_URL;
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -270,7 +270,7 @@ const adminjobList = ({ deleteJob, history }) => {
   const [job, setJob] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/job").then(res => {
+    axios.get(BASE_URL + "/api/job").then(res => {
       setJob(res.data.result);
     });
   }, [count]);
@@ -387,7 +387,7 @@ const adminjobList = ({ deleteJob, history }) => {
     });
     try {
       const res = axios
-        .post("http://localhost:5000/api/job/changed_staus", body, config)
+        .post(BASE_URL + "/api/job/changed_staus", body, config)
         .then(response => {
           alert.success("Job Status Changed !");
           setCount(count + 1);

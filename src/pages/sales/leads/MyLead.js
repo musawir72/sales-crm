@@ -62,7 +62,7 @@ export default function salesDetail({ history }) {
     });
     try {
       const res = axios
-        .post("http://localhost:5000/api/job/lead_status", body, config)
+        .post(BASE_URL + "/api/job/lead_status", body, config)
         .then(response => {
           alert.success(" Lead Status Changed !");
           setCount(count + 1);
