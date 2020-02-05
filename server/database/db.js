@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-live db connection
+//live db connection
 const sequelize = new Sequelize("sales-crm", "postgres", "Sql1server2!", {
   pool: {
     max: 5,
@@ -12,7 +12,7 @@ const sequelize = new Sequelize("sales-crm", "postgres", "Sql1server2!", {
   dialect: "postgres"
 });
 
-// //local db connection
+//local db connection
 // const sequelize = new Sequelize("cloudtek", "test", 5432, {
 //   pool: {
 //     max: 5,
