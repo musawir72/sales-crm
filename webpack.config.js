@@ -7,8 +7,6 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 // NODE_ENV will be 'production' on heroku, 'test' in testing env, and if neither it will be 'development'
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
-const BASE_URL = REACT_APP_BASE_URL;
-
 // Load test or development env variables
 if (process.env.NODE_ENV === "test") {
   console.log("rrrrrrrr", process.env.NODE_ENV);
