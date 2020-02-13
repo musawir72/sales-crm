@@ -72,7 +72,7 @@ const jobList = ({ fetchJob, job }) => {
     axios.get(BASE_URL + "/api/job/user_daily_job_created").then(res => {
       setDailyJob(res.data.result);
     });
-  }, []);
+  }, [count]);
 
   console.log(dailyJob, "dailyyyyyyyy");
   const classes = useStyles();
@@ -89,14 +89,10 @@ const jobList = ({ fetchJob, job }) => {
   };
 
   const countAdd = (company_name, job_title, url) => {
-    dailyJob.push({
-      companyName: company_name,
-      job_title,
-      url
-    });
     if (company_name && url) {
       alert.success("Job Successfully Added !");
     }
+    setCount(count + 1);
   };
 
   return (

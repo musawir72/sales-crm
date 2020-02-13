@@ -12,6 +12,8 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { useAlert } from "react-alert";
+
+const BASE_URL = REACT_APP_BASE_URL;
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -44,7 +46,7 @@ export default function salesDetail({ history }) {
     setOpen(true);
   };
   useEffect(() => {
-    axios.get("http://127.0.0.1:5000/api/job/my_leads").then(res => {
+    axios.get(BASE_URL + "/api/job/my_leads").then(res => {
       SetData(res.data.result);
     });
   }, [count]);

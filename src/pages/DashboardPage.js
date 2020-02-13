@@ -17,6 +17,8 @@ const ul = {
   fontFamily: "serif",
   fontSize: "15px"
 };
+
+const BASE_URL = REACT_APP_BASE_URL;
 const DashboardPage = ({ user }) => {
   //week state
   const [job, SetJob] = React.useState([]);
@@ -36,76 +38,62 @@ const DashboardPage = ({ user }) => {
 
   useEffect(() => {
     // jobs count
-    axios.get("http://127.0.0.1:5000/api/job/status_job_count").then(res => {
+    axios.get(BASE_URL + "/api/job/status_job_count").then(res => {
       SetJob(res.data.result);
     });
     //leads count
-    axios.get("http://127.0.0.1:5000/api/job/status_lead_count").then(res => {
+    axios.get(BASE_URL + "/api/job/status_lead_count").then(res => {
       SetLead(res.data.result);
     });
     // good leads count
-    axios
-      .get("http://127.0.0.1:5000/api/job/status_good_lead_count")
-      .then(res => {
-        SetGoodLead(res.data.result);
-      });
+    axios.get(BASE_URL + "/api/job/status_good_lead_count").then(res => {
+      SetGoodLead(res.data.result);
+    });
     // hot leads count
-    axios
-      .get("http://127.0.0.1:5000/api/job/status_hot_lead_count")
-      .then(res => {
-        SetHotLead(res.data.result);
-      });
+    axios.get(BASE_URL + "/api/job/status_hot_lead_count").then(res => {
+      SetHotLead(res.data.result);
+    });
     // closed lead count
-    axios
-      .get("http://127.0.0.1:5000/api/job/status_closed_lead_count")
-      .then(res => {
-        SetClosedLead(res.data.result);
-      });
+    axios.get(BASE_URL + "/api/job/status_closed_lead_count").then(res => {
+      SetClosedLead(res.data.result);
+    });
     //rejected lead count
-    axios
-      .get("http://127.0.0.1:5000/api/job/status_rejected_lead_count")
-      .then(res => {
-        SetRejectLead(res.data.result);
-      });
+    axios.get(BASE_URL + "/api/job/status_rejected_lead_count").then(res => {
+      SetRejectLead(res.data.result);
+    });
 
     // Previous Monthly Job Report
-    axios
-      .get("http://127.0.0.1:5000/api/job/status_job_monthly_count")
-      .then(res => {
-        SetMJob(res.data.result);
-      });
+    axios.get(BASE_URL + "/api/job/status_job_monthly_count").then(res => {
+      SetMJob(res.data.result);
+    });
 
     // Previous Monthly Lead Report
-    axios
-      .get("http://127.0.0.1:5000/api/job/status_lead_monthly_count")
-      .then(res => {
-        SetMLead(res.data.result);
-      });
+    axios.get(BASE_URL + "/api/job/status_lead_monthly_count").then(res => {
+      SetMLead(res.data.result);
+    });
 
     // Previous Monthly Good Lead Report
     axios
-      .get("http://127.0.0.1:5000/api/job/status_good_lead_monthly_count")
+      .get(BASE_URL + "/api/job/status_good_lead_monthly_count")
       .then(res => {
         SetMGoodLead(res.data.result);
       });
 
     // Previous Monthly Good Lead Report
-    axios
-      .get("http://127.0.0.1:5000/api/job/status_hot_lead_month_count")
-      .then(res => {
-        SetMHotLead(res.data.result);
-      });
+    axios.get(BASE_URL + "/api/job/status_hot_lead_month_count").then(res => {
+      SetMHotLead(res.data.result);
+    });
 
     // Previous Monthly Good Lead Report
     axios
-      .get("http://127.0.0.1:5000/api/job/status_closed_lead_monthly_count")
+      .get(BASE_URL + "/api/job/status_closed_lead_monthly_count")
       .then(res => {
         SetMClosedLead(res.data.result);
       });
 
     // Previous Monthly Good Lead Report
     axios
-      .get("http://127.0.0.1:5000/api/job/status_rejected_lead_monthly_count")
+      .get(BASE_URL + "/api/job/status_rejected_lead_monthly_count")
       .then(res => {
         SetMRejectLead(res.data.result);
       });
