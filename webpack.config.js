@@ -69,6 +69,7 @@ module.exports = (env, argv) => {
       inline: true,
       host: "0.0.0.0",
       historyApiFallback: true,
+      disableHostCheck: true,
       publicPath: "/dist/",
       port: 3000
     }
